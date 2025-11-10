@@ -42,7 +42,7 @@ O sistema foi desenvolvido em **Java** e tem como objetivo demonstrar o uso de *
 │
 ├── README.md
 ├── .gitignore
-└── LICENSE (opcional)
+└── LICENSE 
 
 ```
 
@@ -107,12 +107,16 @@ A explicação detalhada de cada **classe, associação e exceção personalizad
 
 ## ⚖️ Licença
 
-Este projeto está licenciado sob a **MIT License** — veja o arquivo [LICENSE](../LICENSE) para mais detalhes.
+Este projeto está licenciado sob a **MIT License** — veja o arquivo [LICENSE](./LICENSE) para mais detalhes.
 
 ---
 
 ## ✨ Autores
 
-**Matheus Estevam - 251013651**
+**Matheus Estevam Ferreira - 251013651**
+**Maria Vitória Queiroz Lima  - 251013740**
+**Jéssyca Pereira de Souza Farias - 251023246**
+**Italo Souza Moura - 251022418**
+
 📆 Projeto desenvolvido como trabalho final da disciplina de **Orientação a Objetos**.
 
