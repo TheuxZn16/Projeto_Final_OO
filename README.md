@@ -10,8 +10,17 @@ O sistema foi desenvolvido em **Java** e tem como objetivo demonstrar o uso de *
 ```
 .
 │
+├── 📁 docs/
+│   ├── Projeto_Final_OO_UML_Explicacoes.pdf
+│   └── Projeto_Final_OO_UML.png
+│
 ├── 📁 src/
 │   ├── 📁 entidades/
+│   │   ├──📁 enums/
+│   │   │   ├── CategoriaServico.java
+│   │   │   ├── StatusCorrida.java
+│   │   │   ├── StatusMotorista.java
+│   │   │   └── TipoPagamento.java
 │   │   ├── Usuario.java
 │   │   ├── Passageiro.java
 │   │   ├── Motorista.java
@@ -30,15 +39,10 @@ O sistema foi desenvolvido em **Java** e tem como objetivo demonstrar o uso de *
 │   │   ├── PagamentoRecusadoException.java
 │   │   ├── NenhumMotoristaDisponivelException.java
 │   │   ├── EstadoInvalidoDaCorridaException.java
-│   │   ├── PassageiroPendenteException.java
-│   │   └── MotoristaInvalidoException.java
+│   │   ├── PassageiroDevendoException.java
+│   │   └── StatusDaCorridaInvalidoException.java
 │   │
 │   └── Main.java
-│
-├── 📁 docs/
-│   ├── Projeto_Final_OO_Explicacoes.pdf
-│   ├── Projeto_Final_OO_UML.png
-│   └── Projeto_Final_OO_UML_EDITAVEL.drawio
 │
 ├── README.md
 ├── .gitignore
@@ -63,7 +67,6 @@ O sistema foi desenvolvido em **Java** e tem como objetivo demonstrar o uso de *
 O diagrama completo das classes e associações está disponível em:
 
 - 📄 `/docs/Projeto_Final_OO_UML.png`  
-- 🧩 `/docs/Projeto_Final_OO_UML_EDITAVEL.drawio` (editável no [Draw.io](https://app.diagrams.net))
 
 ---
 
@@ -71,7 +74,7 @@ O diagrama completo das classes e associações está disponível em:
 
 A explicação detalhada de cada **classe, associação e exceção personalizada** está disponível no PDF:
 
-📘 `/docs/Projeto_Final_OO_Explicacoes.pdf`
+📘 `/docs/Projeto_Final_OO_UML_Explicacoes.pdf`
 
 ---
 
@@ -86,7 +89,7 @@ A explicação detalhada de cada **classe, associação e exceção personalizad
 2. Compile o projeto:
 
    ```bash
-   javac *.java excecoes/*.java
+   javac *.java
    ```
 
 3. Execute:
@@ -100,7 +103,7 @@ A explicação detalhada de cada **classe, associação e exceção personalizad
 ## 🧑‍💻 Tecnologias Utilizadas
 
 * Linguagem: **Java**
-* Ferramenta UML: **Draw.io**
+* Ferramenta UML: **PlantText**
 * Controle de versão: **Git + GitHub**
 
 ---
