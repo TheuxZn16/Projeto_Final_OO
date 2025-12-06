@@ -1,13 +1,11 @@
 package entidades;
 
-import entidades.enums.TipoPagamento;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Passageiro extends Usuario {
 
-    private final List<TipoPagamento> tipoPagamentos = new ArrayList<>();
+    private final List<MetodoPagamento> metodosPagamento = new ArrayList<>();
     private boolean estaDevendo;
     private double valorQueDeve;
 
@@ -15,47 +13,30 @@ public class Passageiro extends Usuario {
         super(nome, cpf, email, telefone, senha);
         this.estaDevendo = false;
         this.valorQueDeve = 0.0;
-
     }
 
-    public void adicionarTipoPagamento(TipoPagamento tipoPagamento) {
-        if (tipoPagamento != null && !tipoPagamentos.contains(tipoPagamento)) {
-            tipoPagamentos.add(tipoPagamento);
-        }
+    public void setValorDevendo(double valor) {
+        this.valorQueDeve = valor;
     }
 
-    public void removerTipoPagamento(TipoPagamento tipoPagamento) {
-        tipoPagamentos.remove(tipoPagamento);
-
-    }
-
-    public List<TipoPagamento> getTiposPagamento() {
-        return new ArrayList<>(tipoPagamentos);
-
+    public void setEstaDevendo(boolean estaDevendo) {
+        this.estaDevendo = estaDevendo;
     }
 
     public boolean estaDevendo() {
         return estaDevendo;
+    }
+
+    public void regularizar(MetodoPagamento metodoPagamento) {
 
     }
 
-    public double getValorQueDeve() {
-        return valorQueDeve;
-
+    public void adicionarMetodoPagamento(MetodoPagamento metodoPagamento) {
+        metodosPagamento.add(metodoPagamento);
     }
 
-    public void adicionarDivida(double valor) {
-        if (valor > 0) {
-            this.valorQueDeve += valor;
-            this.estaDevendo = true;
-        }
+    public List<MetodoPagamento> getMetodosPagamento() {
+        return new ArrayList<>(metodosPagamento);
     }
-
-    public void quitarDivida() {
-        this.valorQueDeve = 0.0;
-        this.estaDevendo = false;
-
-    }
-
 
 }
