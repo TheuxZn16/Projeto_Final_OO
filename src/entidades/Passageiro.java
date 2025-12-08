@@ -1,42 +1,40 @@
 package entidades;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Passageiro extends Usuario {
+  private ArrayList<MetodoPagamento> metodosPagamento;
+  private boolean estaDevendo;
+  private double valorQueDeve;
 
-    private final List<MetodoPagamento> metodosPagamento = new ArrayList<>();
-    private boolean estaDevendo;
-    private double valorQueDeve;
-
-    public Passageiro(String nome, String cpf, String email, String telefone, String senha) {
-        super(nome, cpf, email, telefone, senha);
-        this.estaDevendo = false;
-        this.valorQueDeve = 0.0;
+  public Passageiro(String nome, String cpf, String email, String senha, String telefone) {
+    super(nome, cpf, email, senha, telefone);
+    this.metodosPagamento = new ArrayList<MetodoPagamento>();
+    this.estaDevendo = false;
+  }
+  public void setValorDevendo(double valor){
+    valorQueDeve = valor;
+  }
+  public void setEstaDevendo(){
+    this.estaDevendo = !estaDevendo;
+  }
+  public boolean getEstaDevendo(){
+    return estaDevendo;
+  }
+  public void regularizar(MetodoPagamento metodoPagamento){
+    try {
+      metodoPagamento.processarPagamento(valorQueDeve);
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+      return;
     }
-
-    public void setValorDevendo(double valor) {
-        this.valorQueDeve = valor;
-    }
-
-    public void setEstaDevendo(boolean estaDevendo) {
-        this.estaDevendo = estaDevendo;
-    }
-
-    public boolean estaDevendo() {
-        return estaDevendo;
-    }
-
-    public void regularizar(MetodoPagamento metodoPagamento) {
-
-    }
-
-    public void adicionarMetodoPagamento(MetodoPagamento metodoPagamento) {
-        metodosPagamento.add(metodoPagamento);
-    }
-
-    public List<MetodoPagamento> getMetodosPagamento() {
-        return new ArrayList<>(metodosPagamento);
-    }
-
+    setEstaDevendo();
+    setValorDevendo(0.00);
+  }
+  public void adicionarMetodoPagamento(MetodoPagamento m) {
+    metodosPagamento.add(m);
+  }
+  public ArrayList<MetodoPagamento> getMetodoPagamentos(){
+    return metodosPagamento;
+  }
 }
