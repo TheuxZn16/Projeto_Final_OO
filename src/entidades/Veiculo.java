@@ -35,8 +35,7 @@ public class Veiculo {
 		
 	}
 	
-	@Override
-	public String toString() {
+	public String getDescricao() {
 		return modelo + " " + " - " + placa + " (" + ano + ") ";
 	}
 }
