@@ -1,65 +1,50 @@
 package servico;
-
 import java.util.ArrayList;
 
-public class ServicoCorrida { 
+import entidades.Corrida;
+import entidades.MetodoPagamento;
+import entidades.Motorista;
+import entidades.Passageiro;
+import entidades.enums.CategoriaServico;
+import entidades.enums.StatusMotorista;
+import excecoes.NenhumMotoristaDisponivelException;
+import excecoes.PagamentoRecusadoException;
+import excecoes.PassageiroDevendoException;
 
-    private ArrayList<Motorista> motoristasDisponiveis;
+public class ServicoCorrida {
+  private ArrayList<Motorista> motoristasDisponiveis;
 
-    public ServicoCorrida(){
-        motoristasDisponiveis = new ArrayList<Motorista>();
+  public ServicoCorrida(){
+    this.motoristasDisponiveis = new ArrayList<Motorista>();
+  }
 
-    }
+  public void adicionarMotorista(Motorista motorista){
+    motoristasDisponiveis.add(motorista);
+  }
 
-    public void adicionarMotorista (Motorista motorista){ 
-        if(motorista != null && motorista.getStatus == Status.ONLINE)
-            motoristasDisponiveis.add(motorista);
-    }
+  public Motorista procurarMotorista() throws NenhumMotoristaDisponivelException{
+    return motoristasDisponiveis.stream().filter(m -> m.getStatusMotorista() == StatusMotorista.ONLINE).findFirst().orElseThrow(() -> new NenhumMotoristaDisponivelException("Nenhum motorista disponível."));
+  }
 
-    public void removerMotorista(Motorista motorista) {
-        motoristasDisponiveis.remove(motorista);
-    }
-
-    private Motorista procurarMotorista() throws NenhumMotoristaDisponivelException{
-        for(Motorista motorista: motoristasDisponiveis){
-            if (motorista.getStatus() == Status.ONLINE){
-                return(motorista);
-            }
-        }
-        throw new NenhumMotoristaDisponivelException();
-        
-    }
-
-
-    public Corrida solicitarCorrida(Passageiro passageiro, String origem, Sring destino, double distanciaKm, CategriaServico categoria, MetodoPagamento metodoPagamento) throws Exception{
-        Corrida solicitarCorrida = new Corrida();
-
-        if (passageiro.estaDevendo())
-            throw new PassageiroDevendoException();
-
-        if (metodoPagamento == null)
-            throw new PagamentoRecusadoException();
-
-        Motorista motorista = procurarMotorista();
-
-        motorista.setStatus(StatusMotorista.EM_CORRIDA);
-
-        Corrida corrida = new Corrida(
-                origem,
-                destino,
-                distanciaKm,
-                categoria,
-                passageiro,
-                motorista,
-                metodoPagamento
-        );
-
-        return corrida;
-    }
-
-    public void finalizarCorrida(Corrida corrida) {
-        corrida.finalizar();
-        corrida.getMotorista().setStatus(StatusMotorista.ONLINE);
-    }
+  public Corrida solicitarCorrida(Passageiro passageiro, String origem, String destino, double distanciaKm,
+  CategoriaServico categoria, MetodoPagamento metodoPagamento) throws PassageiroDevendoException, PagamentoRecusadoException{
+    if(passageiro.getEstaDevendo()) throw new PassageiroDevendoException("O passageiro está devendo, primeiro regularize para solicitar uma viagem");
     
+    if (!passageiro.getMetodoPagamentos().stream()
+    .filter(m -> m.equals(metodoPagamento))
+    .findFirst()
+    .isPresent()) {
+    throw new PagamentoRecusadoException("Método de pagamento não está associado ao passageiro");
+}
+    Motorista motorista;
+
+    try {
+    motorista = procurarMotorista();     
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+      return null;
+    }
+    Corrida corrida = new Corrida(origem, destino, categoria, distanciaKm, passageiro, motorista, metodoPagamento);
+    return corrida;
+  }
 }
